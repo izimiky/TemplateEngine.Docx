@@ -130,7 +130,7 @@ namespace TemplateEngine.Docx
 				}
 			}
 
-			_errors.Clear();
+			_errors?.Clear();
 			_errors = processResult.Errors.ToList();
 
 			if (_isNeedToNoticeAboutErrors)
