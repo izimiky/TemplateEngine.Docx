@@ -157,3 +157,8 @@ $RECYCLE.BIN/
 .DS_Store
 sources/packages/*
 sources/.vs/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+pub/

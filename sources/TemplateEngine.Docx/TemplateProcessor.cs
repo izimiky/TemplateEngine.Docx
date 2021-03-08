@@ -15,6 +15,7 @@ namespace TemplateEngine.Docx
 	    private readonly WordDocumentContainer _wordDocument;
 	    private bool _isNeedToRemoveContentControls;
 	    private bool _isNeedToNoticeAboutErrors;
+	    private List<IError> _errors;
 
 	    public XDocument Document { get { return _wordDocument.MainDocumentPart; } }
 
@@ -128,16 +129,24 @@ namespace TemplateEngine.Docx
 					processResult.Merge(headerProcessResult);
 				}
 			}
-			
+
+			_errors.Clear();
+			_errors = processResult.Errors.ToList();
+
 			if (_isNeedToNoticeAboutErrors)
 				AddErrors(processResult.Errors);
 
-            return this;
+			return this;
         }
 		
 		public void SaveChanges()
 		{
 			_wordDocument.SaveChanges();
+		}
+
+		public IReadOnlyList<IError> GetErrors()
+		{
+			return _errors;
 		}
 
 		/// <summary>
