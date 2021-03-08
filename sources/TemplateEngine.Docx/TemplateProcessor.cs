@@ -15,7 +15,7 @@ namespace TemplateEngine.Docx
 	    private readonly WordDocumentContainer _wordDocument;
 	    private bool _isNeedToRemoveContentControls;
 	    private bool _isNeedToNoticeAboutErrors;
-	    private List<IError> _errors;
+	    private List<IError> _errors = new List<IError>();
 
 	    public XDocument Document { get { return _wordDocument.MainDocumentPart; } }
 
@@ -130,8 +130,7 @@ namespace TemplateEngine.Docx
 				}
 			}
 
-			_errors?.Clear();
-			_errors = processResult.Errors.ToList();
+			_errors.AddRange(processResult.Errors);
 
 			if (_isNeedToNoticeAboutErrors)
 				AddErrors(processResult.Errors);
@@ -147,6 +146,11 @@ namespace TemplateEngine.Docx
 		public IReadOnlyList<IError> GetErrors()
 		{
 			return _errors;
+		}
+
+		public void ClearErrors()
+		{
+			_errors.Clear();
 		}
 
 		/// <summary>
